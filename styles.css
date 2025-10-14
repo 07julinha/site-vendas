@@ -1,0 +1,21 @@
+/* Adicione este código ao seu arquivo style.css */
+
+/* Estilos para a nova seção de banner */
+.banner-principal {
+    width: 100%;
+    margin-bottom: 30px; /* Espaçamento abaixo do banner */
+    overflow: hidden; /* Garante que a imagem não vaze */
+}
+
+.banner-principal .imagem-banner {
+    width: 100%; /* A imagem ocupa 100% da largura do contêiner */
+    height: auto; /* Mantém a proporção da imagem */
+    display: block; /* Remove possíveis margens inferiores */
+}
+
+/* Você pode adicionar Media Queries se quiser um banner diferente para celular */
+@media (max-width: 768px) {
+    .banner-principal {
+        margin-bottom: 20px;
+    }
+}
