@@ -1,43 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sport Store - Sua Loja de Esportes</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+
+    <!-- Header Section -->
     <header>
         <h1>Sport Store</h1>
         <button id="abrir-carrinho">🛒 Carrinho (<span id="contador-carrinho">0</span>)</button>
     </header>
 
+    <!-- Main Banner Section -->
     <section class="banner-principal">
-        <img src="principal.jpeg" 
-             alt="Banner de Promoção - Até 50% de Desconto em Calçados" 
-             class="imagem-banner">
-        </section>
+        <img src="loja.jpg" alt="Banner de Promoção - Até 50% de Desconto em Calçados" class="imagem-banner">
+    </section>
+
+    <!-- Main Content Section -->
     <main>
         <h2>Produtos em Destaque</h2>
         <section id="produtos">
-            </section>
+            <!-- Products will be dynamically inserted here -->
+        </section>
     </main>
 
+    <!-- Modal for Cart -->
     <div id="modal-carrinho" class="modal">
         <div class="modal-conteudo">
             <span class="fechar-modal">&times;</span>
             <h3>Seu Carrinho de Compras</h3>
             <ul id="lista-carrinho">
-                </ul>
+                <!-- List of items in the cart will be dynamically inserted here -->
+            </ul>
             <p>Total: R$ <span id="total-carrinho">0.00</span></p>
             <button id="finalizar-compra" disabled>Finalizar Compra</button>
         </div>
     </div>
 
+    <!-- Footer Section -->
     <footer>
         <p>&copy; 2024 Sport Store. Todos os direitos reservados.</p>
     </footer>
 
+    <!-- Link to External JavaScript -->
     <script src="script.js"></script>
+
 </body>
+
 </html>

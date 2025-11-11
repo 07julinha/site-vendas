@@ -20,19 +20,19 @@ const produtos = [
         id: 2, 
         nome: "Tênis de Corrida Adidas Ultraboost", 
         preco: 699.00, 
-        imagem: "https://via.placeholder.com/250x200/28a745/FFFFFF?text=Tenis+Corrida" // Substitua este caminho
+        imagem: "tenisco.jpeg" // Substitua este caminho
     },
     { 
         id: 3, 
-        nome: "Camisa NBA Los Angeles Lakers", 
+        nome: "Camisa São Paulo libertadores", 
         preco: 349.99, 
         imagem: "camisa nba.jpeg" // Substitua este caminho
     },
     { 
         id: 4, 
-        nome: "Halteres de 5kg (Par)", 
+        nome: "halt.jpeg"
         preco: 89.50, 
-        imagem: "https://via.placeholder.com/250x200/dc3545/FFFFFF?text=Halteres+5kg" // Substitua este caminho
+        imagem: "" // Substitua este caminho
     }
 ];
 
