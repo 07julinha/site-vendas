@@ -1,55 +1,103 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sport Store - Sua Loja de Esportes</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-    <!-- Header Section -->
+    <!-- Cabeçalho -->
     <header>
         <h1>Sport Store</h1>
         <button id="abrir-carrinho">🛒 Carrinho (<span id="contador-carrinho">0</span>)</button>
     </header>
 
-    <!-- Main Banner Section -->
+    <!-- Banner Principal -->
     <section class="banner-principal">
         <img src="loja.jpg" alt="Banner de Promoção - Até 50% de Desconto em Calçados" class="imagem-banner">
     </section>
 
-    <!-- Main Content Section -->
+    <!-- Produtos -->
     <main>
         <h2>Produtos em Destaque</h2>
         <section id="produtos">
-            <!-- Products will be dynamically inserted here -->
+            
+            <div class="produto">
+                <img src="tenisco.jpeg" alt="Tênis Nike Air Zoom Pegasus 40">
+                <h3>Tênis Nike Air Zoom Pegasus 40</h3>
+                <p>R$ 599,90</p>
+                <button onclick="adicionarAoCarrinho(1)">Adicionar ao Carrinho</button>
+            </div>
+
+            <div class="produto">
+                <img src="tenisadi.jpg" alt="Tênis Adidas Ultraboost 22">
+                <h3>Tênis Adidas Ultraboost 22</h3>
+                <p>R$ 699,00</p>
+                <button onclick="adicionarAoCarrinho(2)">Adicionar ao Carrinho</button>
+            </div>
+
+            <div class="produto">
+                <img src="camisa.webp" alt="Camiseta Esportiva Dry-Fit">
+                <h3>Camiseta Esportiva Dry-Fit</h3>
+                <p>R$ 89,90</p>
+                <button onclick="adicionarAoCarrinho(3)">Adicionar ao Carrinho</button>
+            </div>
+             <div class="produto">
+                <img src="camisa_retro_sao_paulo_2007_789_1_51aa8c303f95d1bc81d7e639b6cad2ef.webp" alt="Camiseta São Paulo libertadores">
+                <h3>São Paulo libertadores</h3>
+                <p>R$ 590,90</p>
+                <button onclick="adicionarAoCarrinho(3)">Adicionar ao Carrinho</button>
+            </div>
+        
+             <div class="produto">
+                <img src="download.jpeg" alt="bola de basquete">
+                <h3>Bola de Basquete</h3>
+                <p>R$ 89,90</p>
+                <button onclick="adicionarAoCarrinho(3)">Adicionar ao Carrinho</button>
+            </div>
+
+             <div class="produto">
+                <img src="fut.jpg" alt="tenis futsal">
+                <h3>Umbro Pro 5</h3>
+                <p>R$ 699,90</p>
+                <button onclick="adicionarAoCarrinho(3)">Adicionar ao Carrinho</button>
+            </div>
+
+             <div class="produto">
+                <img src="cinto.webp" alt="Cinto de Tração">
+                <h3>Cinto de Tração</h3>
+                <p>R$ 150,90</p>
+                <button onclick="adicionarAoCarrinho(3)">Adicionar ao Carrinho</button>
+            </div>
+
+             <div class="produto">
+                <img src="cone.jpg" alt="Cinto de Tração">
+                <h3>kit 25 cones</h3>
+                <p>R$ 35,90</p>
+                <button onclick="adicionarAoCarrinho(3)">Adicionar ao Carrinho</button>
+            </div>
+
         </section>
     </main>
 
-    <!-- Modal for Cart -->
+    <!-- Modal do Carrinho -->
     <div id="modal-carrinho" class="modal">
         <div class="modal-conteudo">
             <span class="fechar-modal">&times;</span>
             <h3>Seu Carrinho de Compras</h3>
-            <ul id="lista-carrinho">
-                <!-- List of items in the cart will be dynamically inserted here -->
-            </ul>
-            <p>Total: R$ <span id="total-carrinho">0.00</span></p>
+            <ul id="lista-carrinho"></ul>
+            <p>Total: R$ <span id="total-carrinho">0,00</span></p>
             <button id="finalizar-compra" disabled>Finalizar Compra</button>
         </div>
     </div>
 
-    <!-- Footer Section -->
+    <!-- Rodapé -->
     <footer>
-        <p>&copy; 2024 Sport Store. Todos os direitos reservados.</p>
+        <p>&copy; 2025 Sport Store. Todos os direitos reservados.</p>
     </footer>
 
-    <!-- Link to External JavaScript -->
     <script src="script.js"></script>
-
 </body>
-
 </html>

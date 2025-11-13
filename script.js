@@ -1,4 +1,14 @@
-const produtosContainer = document.getElementById('produtos');
+// Carrinho
+let carrinho = JSON.parse(localStorage.getItem('carrinhoSportStore')) || [];
+
+// Produtos fixos (mesmos IDs do HTML)
+const produtos = [
+    { id: 1, nome: "Tênis Nike Air Zoom Pegasus 40", preco: 599.90 },
+    { id: 2, nome: "Tênis Adidas Ultraboost 22", preco: 699.00 },
+    { id: 3, nome: "Camiseta Esportiva Dry-Fit", preco: 89.90 }
+];
+
+// Seletores
 const carrinhoLista = document.getElementById('lista-carrinho');
 const totalElement = document.getElementById('total-carrinho');
 const contadorCarrinho = document.getElementById('contador-carrinho');
@@ -7,87 +17,28 @@ const btnAbrirCarrinho = document.getElementById('abrir-carrinho');
 const btnFecharModal = document.querySelector('.fechar-modal');
 const btnFinalizarCompra = document.getElementById('finalizar-compra');
 
-// Array de produtos (simulação de um "banco de dados" de produtos)
-// ⚠️ ATENÇÃO: Substitua as URLs das imagens pelos caminhos reais das suas imagens!
-const produtos = [
-    { 
-        id: 1, 
-        nome: "Bola de Futebol adidas", 
-        preco: 129.90, 
-        imagem: "images.jpeg"// Substitua este caminho
-    },
-    { 
-        id: 2, 
-        nome: "Tênis de Corrida Adidas Ultraboost", 
-        preco: 699.00, 
-        imagem: "tenisco.jpeg" // Substitua este caminho
-    },
-    { 
-        id: 3, 
-        nome: "Camisa São Paulo libertadores", 
-        preco: 349.99, 
-        imagem: "camisa nba.jpeg" // Substitua este caminho
-    },
-    { 
-        id: 4, 
-        nome: "halt.jpeg"
-        preco: 89.50, 
-        imagem: "" // Substitua este caminho
-    }
-];
+// Adicionar ao carrinho
+function adicionarAoCarrinho(id) {
+    const produto = produtos.find(p => p.id === id);
+    if (!produto) return;
 
-// Carrega o carrinho do Local Storage (se houver) ou inicia como vazio
-let carrinho = JSON.parse(localStorage.getItem('carrinhoSportStore')) || [];
-
-// 1. Renderiza os produtos na página (cria o HTML dos produtos)
-function renderizarProdutos() {
-    produtos.forEach(produto => {
-        const divProduto = document.createElement('div');
-        divProduto.classList.add('produto');
-        divProduto.innerHTML = `
-            <img src="${produto.imagem}" alt="${produto.nome}">
-            <h3>${produto.nome}</h3>
-            <p>R$ ${produto.preco.toFixed(2).replace('.', ',')}</p>
-            <button onclick="adicionarAoCarrinho(${produto.id})">Adicionar ao Carrinho</button>
-        `;
-        produtosContainer.appendChild(divProduto);
-    });
+    const item = carrinho.find(i => i.id === id);
+    item ? item.quantidade++ : carrinho.push({ ...produto, quantidade: 1 });
+    
+    atualizarCarrinho();
+    alert(`${produto.nome} adicionado ao carrinho!`);
 }
 
-// 2. Adiciona um produto ao carrinho ou aumenta sua quantidade
-function adicionarAoCarrinho(produtoId) {
-    const produto = produtos.find(p => p.id === produtoId);
-    if (produto) {
-        const itemExistente = carrinho.find(item => item.id === produtoId);
-        
-        if (itemExistente) {
-            itemExistente.quantidade++;
-        } else {
-            // Cria uma cópia do produto e adiciona a propriedade 'quantidade'
-            carrinho.push({ ...produto, quantidade: 1 });
-        }
-        
-        atualizarCarrinho();
-        alert(`${produto.nome} adicionado ao carrinho!`);
-    }
-}
+// Remover item
+function removerDoCarrinho(id) {
+    const item = carrinho.find(i => i.id === id);
+    if (!item) return;
 
-// 3. Remove um item do carrinho (diminui a quantidade ou remove totalmente)
-function removerDoCarrinho(produtoId) {
-    const index = carrinho.findIndex(item => item.id === produtoId);
-
-    if (index !== -1) {
-        if (carrinho[index].quantidade > 1) {
-            carrinho[index].quantidade--;
-        } else {
-            // Remove o item se a quantidade for 1
-            carrinho.splice(index, 1);
-        }
-    }
+    item.quantidade > 1 ? item.quantidade-- : carrinho = carrinho.filter(i => i.id !== id);
     atualizarCarrinho();
 }
 
-// 4. Atualiza a interface do carrinho, contador e Local Storage
+// Atualizar carrinho
 function atualizarCarrinho() {
     carrinhoLista.innerHTML = '';
     let total = 0;
@@ -101,8 +52,9 @@ function atualizarCarrinho() {
         const li = document.createElement('li');
         li.innerHTML = `
             <span>${item.nome} (${item.quantidade}x)</span>
-            <span>R$ ${subtotal.toFixed(2).replace('.', ',')}
-            <button onclick="removerDoCarrinho(${item.id})" style="margin-left: 10px; background: #dc3545; color: white; border: none; padding: 5px; border-radius: 3px; cursor: pointer;">-</button>
+            <span>
+                R$ ${subtotal.toFixed(2).replace('.', ',')}
+                <button onclick="removerDoCarrinho(${item.id})">-</button>
             </span>
         `;
         carrinhoLista.appendChild(li);
@@ -110,41 +62,22 @@ function atualizarCarrinho() {
 
     totalElement.textContent = total.toFixed(2).replace('.', ',');
     contadorCarrinho.textContent = totalItens;
-    
-    // Habilita/Desabilita o botão Finalizar Compra
     btnFinalizarCompra.disabled = carrinho.length === 0;
-
-    // Salva o estado atual do carrinho no Local Storage
     localStorage.setItem('carrinhoSportStore', JSON.stringify(carrinho));
 }
 
-// 5. Eventos de controle do Modal (abre e fecha o pop-up)
-btnAbrirCarrinho.onclick = function() {
-    modalCarrinho.style.display = "block";
-}
+// Modal
+btnAbrirCarrinho.onclick = () => modalCarrinho.style.display = "flex";
+btnFecharModal.onclick = () => modalCarrinho.style.display = "none";
+window.onclick = e => { if (e.target === modalCarrinho) modalCarrinho.style.display = "none"; };
 
-btnFecharModal.onclick = function() {
-    modalCarrinho.style.display = "none";
-}
-
-// Fecha o modal se o usuário clicar fora dele
-window.onclick = function(event) {
-    if (event.target === modalCarrinho) {
-        modalCarrinho.style.display = "none";
-    }
-}
-
-// 6. Finalizar Compra (Ação de exemplo, sem processamento de pagamento real)
-btnFinalizarCompra.onclick = function() {
-    // Ação simplificada: exibir um alerta, limpar o carrinho e fechar o modal
+// Finalizar compra
+btnFinalizarCompra.onclick = () => {
     alert(`Compra finalizada! Total de R$ ${totalElement.textContent}. Obrigado por comprar na Sport Store!`);
-    carrinho = []; 
-    modalCarrinho.style.display = "none"; 
-    atualizarCarrinho(); 
-}
+    carrinho = [];
+    atualizarCarrinho();
+    modalCarrinho.style.display = "none";
+};
 
-// Inicializa a loja ao carregar a página
-document.addEventListener('DOMContentLoaded', () => {
-    renderizarProdutos();
-    atualizarCarrinho(); // Garante que o carrinho salvo seja carregado
-});
+// Iniciar
+document.addEventListener('DOMContentLoaded', atualizarCarrinho);
